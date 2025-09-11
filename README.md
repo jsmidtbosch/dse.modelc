@@ -69,7 +69,6 @@ $ make
 $ make test
 
 # Build containerised tools.
-$ make simer
 $ make tools
 $ make docker
 

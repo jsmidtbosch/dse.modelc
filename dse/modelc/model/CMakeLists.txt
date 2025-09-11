@@ -13,7 +13,7 @@ project(ModelC_Model_API)
 # =======
 
 FetchContent_Declare(automotive-bus-schema
-    URL https://github.com/boschglobal/automotive-bus-schema/releases/download/v1.0.5/automotive-bus-schema.tar.gz
+    URL https://github.com/boschglobal/automotive-bus-schema/releases/download/v1.0.9/automotive-bus-schema.tar.gz
 )
 FetchContent_MakeAvailable(automotive-bus-schema)
 set(SCHEMAS_SOURCE_DIR ${automotive-bus-schema_SOURCE_DIR}/flatbuffers/c)
@@ -26,15 +26,20 @@ set(FLATCC_INCLUDE_DIR ${SCHEMAS_SOURCE_DIR}/automotive_bus_schema/flatcc/includ
 add_library(dse_ncodec OBJECT
     ncodec.c
     ${DSE_NCODEC_SOURCE_DIR}/codec.c
-    ${DSE_NCODEC_SOURCE_DIR}/libs/automotive-bus/codec.c
-    ${DSE_NCODEC_SOURCE_DIR}/libs/automotive-bus/frame_can_fbs.c
-    ${DSE_NCODEC_SOURCE_DIR}/libs/automotive-bus/pdu_fbs.c
+    ${DSE_NCODEC_SOURCE_DIR}/codec/ab/codec.c
+    ${DSE_NCODEC_SOURCE_DIR}/codec/ab/frame_fbs.c
+    ${DSE_NCODEC_SOURCE_DIR}/codec/ab/pdu_fbs.c
+    ${DSE_NCODEC_SOURCE_DIR}/codec/ab/flexray/flexray.c
+    ${DSE_NCODEC_SOURCE_DIR}/codec/ab/flexray/fbs.c
+    ${DSE_NCODEC_SOURCE_DIR}/codec/ab/flexray/state.c
+    ${DSE_NCODEC_SOURCE_DIR}/codec/ab/flexray/engine.c
+    ${DSE_NCODEC_SOURCE_DIR}/stream/buffer.c
 )
 target_include_directories(dse_ncodec
     PRIVATE
         ${DSE_CLIB_INCLUDE_DIR}
         ${DSE_NCODEC_INCLUDE_DIR}
-        ${DSE_NCODEC_INCLUDE_DIR}/dse/ncodec/libs
+        ${DSE_NCODEC_INCLUDE_DIR}/dse/ncodec/codec/ab
         ${FLATCC_INCLUDE_DIR}
         ${SCHEMAS_SOURCE_DIR}
         ../../..

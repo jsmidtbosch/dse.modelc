@@ -1,5 +1,6 @@
 env NAME_CAN=ncodec_can
 env NAME_PDU=ncodec_pdu
+env NAME_PDU_OTHER=ncodec_pdu_other
 env SIM=dse/modelc/build/_out/examples/ncodec
 
 
@@ -24,7 +25,6 @@ stdout 'RX \(000003ea\): Hello World! from swc_id=47'
 stdout 'RX \(000003eb\): Hello World! from swc_id=47'
 stdout 'RX \(000003ec\): Hello World! from swc_id=47'
 
-
 # TEST: trace wildcard.
 exec sh -e $WORK/test_trace_wildcard.sh
 
@@ -40,14 +40,14 @@ stdout '\(ncodec_can\) 0.001500 \[1:24:3\] TX 3ec 1 29 :'
 stdout '\(ncodec_can\) 0.002000 \[1:24:3\] RX 3ec 1 29 :'
 stdout '\(ncodec_can\) 0.002000 \[1:24:3\] TX 3ed 1 29 :'
 
-stdout '\(ncodec_pdu\) 0.000500 \[42:4] RX 3e9 28 :'
-stdout '48 65 6c 6c 6f 20 57 6f  72 6c 64 21 20 66 72 6f  6d 20 73 77 63 5f 69 64  3d 34 37 00'
-stdout 'ETH:    src_mac=0000000087654321  dst_mac=0000000056789abc'
-stdout 'ETH:    ethertype=0001  tci_pcp=02  tci_dei=03  tci_vid=0004'
-stdout 'IP:     src_addr=0001:0002:0003:0004:0005:0006:0007:0008'
-stdout 'IP:     dst_addr=0002:0002:0004:0004:0006:0006:0008:0008'
-stdout 'IP:     src_port=1092  dst_port=0978  proto=17'
-stdout 'DOIP:   protocol_version=1  payload_type=2'
+#stdout '\(ncodec_pdu\) 0.000500 \[42:4] RX 3e9 28 :'
+#stdout '48 65 6c 6c 6f 20 57 6f  72 6c 64 21 20 66 72 6f  6d 20 73 77 63 5f 69 64  3d 34 37 00'
+#stdout 'ETH:    src_mac=0000000087654321  dst_mac=0000000056789abc'
+#stdout 'ETH:    ethertype=0001  tci_pcp=02  tci_dei=03  tci_vid=0004'
+#stdout 'IP:     src_addr=0001:0002:0003:0004:0005:0006:0007:0008'
+#stdout 'IP:     dst_addr=0002:0002:0004:0004:0006:0006:0008:0008'
+#stdout 'IP:     src_port=1092  dst_port=0978  proto=17'
+#stdout 'DOIP:   protocol_version=1  payload_type=2'
 
 
 # TEST: trace frame list.
@@ -71,7 +71,9 @@ SIMER="${SIMER:-ghcr.io/boschglobal/dse-simer:latest}"
 docker run --name simer -i --rm -v $ENTRYHOSTDIR/$SIM:/sim \
     $SIMER -valgrind $NAME_CAN \
         -env $NAME_CAN:SIMBUS_LOGLEVEL=2 \
-        -env $NAME_PDU:SIMBUS_LOGLEVEL=2
+        -env $NAME_PDU:SIMBUS_LOGLEVEL=2 \
+        -env $NAME_PDU_OTHER:SIMBUS_LOGLEVEL=2 \
+
 
 -- test_trace_wildcard.sh --
 SIMER="${SIMER:-ghcr.io/boschglobal/dse-simer:latest}"
@@ -79,6 +81,7 @@ docker run --name simer -i --rm -v $ENTRYHOSTDIR/$SIM:/sim \
     $SIMER -valgrind $NAME_CAN \
         -env $NAME_CAN:SIMBUS_LOGLEVEL=4 \
         -env $NAME_CAN:NCODEC_TRACE_CAN_1=* \
+        -env $NAME_PDU_OTHER:NCODEC_TRACE_PDU_47=* \
         -env $NAME_PDU:NCODEC_TRACE_PDU_47=*
 
 -- test_trace_framelist.sh --

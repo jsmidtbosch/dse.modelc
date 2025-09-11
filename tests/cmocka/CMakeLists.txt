@@ -96,9 +96,14 @@ FetchContent_MakeAvailable(dse_network_codec)
 set(DSE_NCODEC_SOURCE_DIR ${dse_network_codec_SOURCE_DIR}/dse/ncodec)
 set(DSE_NCODEC_SOURCE_FILES
     ${DSE_NCODEC_SOURCE_DIR}/codec.c
-    ${DSE_NCODEC_SOURCE_DIR}/libs/automotive-bus/codec.c
-    ${DSE_NCODEC_SOURCE_DIR}/libs/automotive-bus/frame_can_fbs.c
-    ${DSE_NCODEC_SOURCE_DIR}/libs/automotive-bus/pdu_fbs.c
+    ${DSE_NCODEC_SOURCE_DIR}/codec/ab/codec.c
+    ${DSE_NCODEC_SOURCE_DIR}/codec/ab/frame_fbs.c
+    ${DSE_NCODEC_SOURCE_DIR}/codec/ab/pdu_fbs.c
+    ${DSE_NCODEC_SOURCE_DIR}/codec/ab/flexray/flexray.c
+    ${DSE_NCODEC_SOURCE_DIR}/codec/ab/flexray/fbs.c
+    ${DSE_NCODEC_SOURCE_DIR}/codec/ab/flexray/state.c
+    ${DSE_NCODEC_SOURCE_DIR}/codec/ab/flexray/engine.c
+    ${DSE_NCODEC_SOURCE_DIR}/stream/buffer.c
 )
 set(DSE_NCODEC_INCLUDE_DIR "${DSE_NCODEC_SOURCE_DIR}/../..")
 
@@ -106,7 +111,7 @@ set(DSE_NCODEC_INCLUDE_DIR "${DSE_NCODEC_SOURCE_DIR}/../..")
 # External Project - Automotive Bus Schema
 # ----------------------------------------
 FetchContent_Declare(automotive-bus-schema
-    URL https://github.com/boschglobal/automotive-bus-schema/releases/download/v1.0.5/automotive-bus-schema.tar.gz
+    URL https://github.com/boschglobal/automotive-bus-schema/releases/download/v1.0.9/automotive-bus-schema.tar.gz
 )
 FetchContent_MakeAvailable(automotive-bus-schema)
 set(SCHEMAS_SOURCE_DIR ${automotive-bus-schema_SOURCE_DIR}/flatbuffers/c)
