@@ -1,5 +1,6 @@
 #include <dse/testing.h>
 #include <dse/modelc/runtime.h>
+#include <dse/ncodec/interface/frame.h>
 #include <dse/ncodec/codec.h>
 
 typedef struct ModelCMock {
