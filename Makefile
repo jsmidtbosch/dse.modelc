@@ -29,7 +29,7 @@ export DSE_SCHEMA_URL ?= $(DSE_SCHEMA_REPO)/releases/download/v$(DSE_SCHEMA_VERS
 #DSE_NCODEC_VERSION ?= 1.2.0
 #export DSE_NCODEC_URL ?= $(DSE_NCODEC_REPO)/archive/refs/tags/v$(DSE_NCODEC_VERSION).zip
 DSE_NCODEC_REPO ?= https://github.com/jsmidtbosch/dse.ncodec
-DSE_NCODEC_VERSION ?= 0.0.1
+DSE_NCODEC_VERSION ?= 0.0.2
 export DSE_NCODEC_URL ?= $(DSE_NCODEC_REPO)/archive/refs/tags/v$(DSE_NCODEC_VERSION).zip
 
 
