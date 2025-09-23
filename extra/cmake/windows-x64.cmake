@@ -17,6 +17,7 @@ set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY BOTH)
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 
 add_compile_definitions(SIGPIPE=13)
+add_compile_definitions(EBADE=52)
 
 # Enable CCache if available.
 # Trigger secondary storage by setting environment variables:
